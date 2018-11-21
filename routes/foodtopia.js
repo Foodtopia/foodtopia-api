@@ -45,7 +45,7 @@ router
       }
       var query = "select * from menu ORDER BY `id` DESC limit ? OFFSET ?"; //每頁項目範圍
       var params = [LimitNum, startNum];
-      query = mysql.format(query, params); //format 將query取得的項目轉化成params格式
+      query = mysql.format(query, params); //format -> 將query取得的項目轉化成params格式
       connection.query(query, function (error, row) {
         if (error) throw error;
         res.json({ "TotalCount": totalCount, "datas": row });
