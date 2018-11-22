@@ -11,7 +11,8 @@ var usersRouter = require('./routes/users');
 var foodtopiaRouter = require('./routes/foodtopia');
 var updateRouter = require('./routes/update');
 var uploadRouter = require('./routes/upload');
-// var upload_dateRouter = require('./routes/upload_date');
+var membersRouter = require('./routes/members');
+var monthRouter = require('./routes/month');
 
 var app = express();
 app.use(cors());
@@ -30,7 +31,9 @@ app.use('/users', usersRouter);
 app.use('/foodtopia', foodtopiaRouter);
 app.use('/update', updateRouter);
 app.use('/upload', uploadRouter);
-// app.use('/upload_date', upload_dateRouter);
+app.use('/api', membersRouter);
+app.use('/month', monthRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

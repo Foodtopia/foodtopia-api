@@ -18,22 +18,21 @@ connection.connect(function(err) {
 });
 
 router
-  .route("/upload_date") //資料表名稱
+  .route("/menu")
   .get(function(req, res) {
-    connection.query("SELECT * FROM upload_date ORDER BY `id` DESC LIMIT 6", function(error, results) {
+    connection.query("Select * from menu", function(error, rows) {
       if (error) throw error;
-      res.json(results);
+      res.json(rows);
     });
   });
 
   router
   .route("/menu/:upload_time_sid")
   .get(function(req, res) {
-    connection.query("select * from menu where upload_time_sid=?", req.params.upload_time_sid,function(error,row){
-      if(error) throw error;
-      res.json(row);
+    connection.query("select * from `menu` WHERE `upload_time_sid`=?",req.params.upload_time_sid, function(error, rows) {
+      if (error) throw error;
+      res.json(rows);
     });
-  }) 
-  
+  });
 
 module.exports = router;
