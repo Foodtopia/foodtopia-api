@@ -34,7 +34,6 @@ router
     })
   }); 
 
-  
 router
   .route("/community/:id")
   .get(function(req, res) {
