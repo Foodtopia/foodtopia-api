@@ -26,13 +26,14 @@ router
     });
   });
 
-  router
-  .route("/menu/:upload_time_sid")
-  .get(function(req, res) {
-    connection.query("select * from `menu` WHERE `upload_time_sid`=?",req.params.upload_time_sid, function(error, rows) {
-      if (error) throw error;
-      res.json(rows);
-    });
+//月份分類
+router
+.route("/menu/:upload_time_sid")
+.get(function(req, res) {
+  connection.query("select * from `menu` WHERE `upload_time_sid`=?",req.params.upload_time_sid, function(error, rows) {
+    if (error) throw error;
+    res.json(rows);
   });
+});
 
 module.exports = router;

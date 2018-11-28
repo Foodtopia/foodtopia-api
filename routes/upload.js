@@ -26,14 +26,5 @@ router
     });
   });
 
-  router
-  .route("/menu/:upload_time_sid")
-  .get(function(req, res) {
-    connection.query("select * from menu where upload_time_sid=?", req.params.upload_time_sid,function(error,row){
-      if(error) throw error;
-      res.json(row);
-    });
-  }) 
-  
 
 module.exports = router;

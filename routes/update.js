@@ -17,6 +17,7 @@ connection.connect(function(err) {
     console.log("connected as id " + connection.threadId);
 });
 
+//blog月份分類連結迴圈
 router
   .route("/menu")
   .get(function(req, res) {
@@ -26,6 +27,15 @@ router
     });
   });
 
+//menu單筆資料
+router
+.route("/menu/:id")
+.get(function(req, res) {
+  connection.query("select * from `menu` WHERE `id`=?", req.params.id,function(error,row){
+    if(error) throw error;
+    res.json(row);
+  });
+}) 
   
 
 module.exports = router;
