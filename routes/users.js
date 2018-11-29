@@ -13,10 +13,10 @@ var mysql = require("mysql");
 //建立連線
 var connection = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
+  user: 'foodtopia',
   password: '',
   database: 'foodtopia',
-  port: 3306
+  port: 8889
 });
 // connection.connect();
 connection.connect(function (err) {
@@ -30,7 +30,7 @@ connection.connect(function (err) {
 
 router
   .route("/login")
-  .post(function (req, res) {//註冊用
+  .post(function (req, res) { //註冊用
     // 
     function IsEmail(email) {
       var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
@@ -58,12 +58,12 @@ router
   });
 router
   .route("/account")
-  .post(function (req, res) {//登入判斷與儲存
+  .post(function (req, res) { //登入判斷與儲存
     var email = req.body.email;
     var password = req.body.password;
     connection.query("SELECT * FROM `members` WHERE email = ? AND password = ?", [email, password], function (error, rows) {
       if (error) throw error;
-      if (rows == "" ) {
+      if (rows == "") {
         res.send('wrong');
         console.log('wrong');
         console.log(rows);

@@ -5,10 +5,10 @@ var mysql = require("mysql");
 //建立連線
 var connection = mysql.createConnection({
   host: 'localhost',
-  user: 'root',
+  user: 'foodtopia',
   password: '',
   database: 'foodtopia',
-  port: 3306
+  port: 8889
 });
 // connection.connect();
 connection.connect(function (err) {
@@ -22,17 +22,17 @@ connection.connect(function (err) {
 
 router
   .route("/members")
-  .get(function (req, res) {//讀所有資料
+  .get(function (req, res) { //讀所有資料
     connection.query("select * from members", function (error, rows) {
       if (error) throw error;
       res.json(rows);
     })
   })
-  .post(function (req, res) {//註冊用
+  .post(function (req, res) { //註冊用
     var email = req.body.email;
-    connection.query("select * from members WHERE email=?",email, function (error, rows) {
+    connection.query("select * from members WHERE email=?", email, function (error, rows) {
       if (error) throw error;
-      if(rows != ''){
+      if (rows != '') {
         res.send('帳號重複');
       } else {
 
@@ -54,19 +54,23 @@ router
     });
 
   })
-  .put(function (req, res) {//修改資料
+  .put(function (req, res) { //修改資料
     var _member = req.body;
     var id = req.params.id;
     connection.query("update members set ? where id=?", [_member, id], function (error) {
       if (error) throw error;
-      res.json({ message: "修改成功" });
+      res.json({
+        message: "修改成功"
+      });
     })
 
   })
-  .delete(function (req, res) {//刪除資料
+  .delete(function (req, res) { //刪除資料
     connection.query("delete from members where id=?", req.params.id, function (error) {
       if (error) throw error;
-      res.json({ message: "刪除成功" });
+      res.json({
+        message: "刪除成功"
+      });
     })
   });
 
