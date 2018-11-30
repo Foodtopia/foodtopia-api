@@ -15,6 +15,7 @@ var uploadRouter = require('./routes/upload');
 var membersRouter = require('./routes/members');
 var monthRouter = require('./routes/month');
 var imgupRouter = require('./routes/imgup');
+var talkRouter = require('./routes/talk');
 
 var app = express();
 app.use(cors());
@@ -38,6 +39,7 @@ app.use('/upload', uploadRouter);
 app.use('/api', membersRouter);
 app.use('/month', monthRouter);
 app.use('/imgup', imgupRouter,express.static("public/uploads"));//靜態提供public->uploads檔案
+app.use('/talk', talkRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
