@@ -21,6 +21,8 @@ var usersRouter = require('./routes/users');
 var membersRouter = require('./routes/members');
 var sessionRouter = require('./routes/session');
 var cartRouter = require('./routes/cart');
+//brain
+var ingredientsRouter = require('./routes/ingredients');
 
 var app = express();
 app.use(cors());
@@ -49,10 +51,7 @@ app.use('/talk', talkRouter);
 app.use('/api', recipeRouter);
 //wilson
   //session
-var cookieParser = require('cookie-parser');
 var session = require('express-session');
-var app = express();
-app.use(cookieParser());
 app.use(session({
   secret: "123456",
   name: "session"
@@ -61,10 +60,10 @@ app.use(session({
 var mysql = require("mysql");
 var connection = mysql.createConnection({
   host: 'localhost',
-  user: 'foodtopia',
+  user: 'root',
   password: '',
   database: 'foodtopia',
-  port: 8889
+  // port: 8889
 });
 var fs = require("fs");
 var multer = require('multer');
@@ -72,17 +71,12 @@ var upload = multer({
   dest: './uploads'
 });
 app.post('/upload', upload.single('file'), function (req, res, next) {
-
   fs.rename(req.file.path, "./public/uploads/" + req.file.originalname, function (err) {
     if (err) {
       throw err;
     }
     console.log('good!');
   })
-  // res.writeHead(200, {
-  //     "Access-Control-Allow-Origin": "*"
-  // });
-  // res.end(JSON.stringify(req.file)+JSON.stringify(req.body));
   req.session.profile = req.file.originalname;
   var _member = req.session.profile;
   console.log(_member);
@@ -94,13 +88,13 @@ app.post('/upload', upload.single('file'), function (req, res, next) {
     if (error) throw error;
     res.redirect('http://localhost:3001/memberCenter/basicInfo');
   });
-
 })
 app.use('/users', usersRouter);
 app.use('/api', membersRouter);
 app.use('/session', sessionRouter);
 app.use('/cart', cartRouter);
-//
+//brain
+app.use('/api', ingredientsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
